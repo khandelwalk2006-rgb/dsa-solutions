@@ -9,7 +9,7 @@ fundamental concepts of Data Structures.
 - Find Minimum and Maximum in an Array
 - Check if Array is Sorted
 - Move Zeros to End
-- second largest number
+- second largest element (Single Traversal)
 
 ## Language Used
 - C++
