@@ -1,4 +1,4 @@
-Linked List – DSA Solutions (C++)
+**Linked List – DSA Solutions (C++)**
 
 This folder contains **Linked List problems solved in C++**, mainly from  
 **Coding Ninjas** and **GeeksforGeeks**.
