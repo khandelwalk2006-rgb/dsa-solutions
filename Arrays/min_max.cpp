@@ -1,17 +1,54 @@
-// Problem: Find Min and Max
-// Platform: Coding Ninjas
-// Approach: Linear Traversal
-// Time Complexity: O(n)
-// Space Complexity: O(1)
-
-#include <bits/stdc++.h>
+#include<iostream>
+#include<climits>
 using namespace std;
 
-pair<int,int> findMinMax(vector<int>& arr) {
-    int mn = INT_MAX, mx = INT_MIN;
-    for (int x : arr) {
-        mn = min(mn, x);
-        mx = max(mx, x);
+int getMin(int num[] , int n )
+{
+    int min = INT_MAX;
+
+    for(int i = 0; i<n; i++)
+    {
+        if(num[i] < min)
+        {
+            min = num[i] ;
+        }
     }
-    return {mn, mx};
+
+    return min;
+}
+
+
+int getMax(int num[] , int n)
+{
+    int max = INT_MIN;
+
+    for(int i = 0; i<n; i++)
+    {
+        if(num[i] > max)
+        {
+            max = num[i];
+        }
+    }
+
+    return max;
+}
+int main()
+{
+    int size;
+
+    cin >> size;
+
+
+    int num[100];
+
+
+    for(int i = 0; i <size; i++)
+    {
+        cin >> num[i];
+    }
+
+    cout << "max is " << getMax(num, size) << endl;
+    cout << "min is " << getMin(num,size) << endl;
+
+
 }
