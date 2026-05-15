@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+
+        int khu[2001] = {0};
+
+        for(int i = 0; i< arr.size() ; i++)
+        {
+            khu[arr[i] + 1000]++;
+            
+        }
+
+        unordered_set <int> st;
+
+        for(int i = 0; i < 2001 ; i++)
+
+        {
+            if(khu[i] != 0)
+            {
+                if(st.find(khu[i]) != st.end())
+                {
+                    return false;
+                }
+
+                st.insert(khu[i]);
+            }
+        }
+
+        return true;
+        
+        
+    }
+};
