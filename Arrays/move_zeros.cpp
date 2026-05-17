@@ -1,18 +1,17 @@
-// Problem: Move Zeros to End
-// Platform: Coding Ninjas
-// Approach: Two Pointer
-// Time Complexity: O(n)
-// Space Complexity: O(1)
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
 
-#include <bits/stdc++.h>
-using namespace std;
+        int nonZero = 0;
 
-void moveZeroes(vector<int>& arr) {
-    int j = 0;
-    for (int i = 0; i < arr.size(); i++) {
-        if (arr[i] != 0) {
-            swap(arr[i], arr[j]);
-            j++;
+        for(int i = 0; i<nums.size() ; i++)
+        {
+            if(nums[i] != 0)
+            {
+                swap(nums[i] , nums[nonZero]);
+                nonZero ++;
+            }
         }
+        
     }
-}
+};
