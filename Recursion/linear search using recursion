@@ -1,0 +1,45 @@
+#include<iostream>
+using namespace std;
+
+bool linearSearch(int arr[] , int size , int key)
+{
+    // base case
+    if(size == 0)
+    {
+        return 0;
+    }
+
+    if(arr[0] == key)
+    {
+        return true;
+    }
+
+    else
+    {
+        int ans = linearSearch(arr + 1, size - 1, key);
+        return ans;
+    }
+}
+
+int main()
+{
+    int arr[] = {1,2,4,34,12,0,20,1};
+    int size = 8;
+    int key = 3;
+
+    int ans = linearSearch(arr, size , key);
+
+    if(ans)
+    {
+        cout << "key is present " << endl;
+    }
+
+    else
+    {
+        cout << "key is absent " << endl;
+    }
+
+    return 0;
+
+    
+}
