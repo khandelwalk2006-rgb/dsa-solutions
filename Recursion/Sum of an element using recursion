@@ -9,6 +9,11 @@ int sumArray(int arr[] , int size)
         return 0;
     }
 
+    if(size == 1)
+    {
+        return arr[0];
+    }
+
     // recustive relation
 
     int ans = arr[0] + sumArray(arr + 1, size - 1);
