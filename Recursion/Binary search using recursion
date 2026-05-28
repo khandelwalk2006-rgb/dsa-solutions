@@ -1,0 +1,54 @@
+#include<iostream>
+using namespace std;
+
+bool binarySearch(int arr[] , int start , int end,  int key)
+{  
+
+    // base case
+    if(start > end)
+    {
+        return false;
+    }
+
+    int mid = start + (end - start) / 2;
+
+    if(arr[mid] == key)
+    {
+        return true;
+    }
+
+    // recusive relation 
+    if(arr[mid] < key)
+    {
+        binarySearch(arr , mid+1, end, key);
+    }
+
+    else
+    {
+        binarySearch(arr, start , mid - 1, key);
+    }
+}
+
+int main()
+{
+    int arr[] = {1,2,3,4,5,6,7,8,9};
+
+    int size = 9;
+    int key = 10;
+    int s = 0;
+    int e = size - 1;
+
+    int ans = binarySearch(arr,s,e,key);
+
+    if(ans)
+    {
+        cout << "key is found " << endl;
+    }
+
+    else
+    {
+        cout << "key is not found " << endl;
+    }
+
+    return 0;
+}
