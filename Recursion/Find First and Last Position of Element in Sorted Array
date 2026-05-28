@@ -1,0 +1,87 @@
+class Solution {
+
+    int firstOccurance(vector<int>& nums, int s , int e , int target)
+    {
+        // base case
+        if(s>e)
+        {
+            return -1;
+        }
+
+        int mid = s + (e-s)/2;
+
+        // first occurance
+        if(nums[mid] == target)
+        {
+            int leftAns = firstOccurance(nums, s, mid -1, target);
+
+            if(leftAns == -1)
+            {
+                return mid;
+            }
+
+            else
+            {
+                return leftAns;
+            }
+        }
+
+        else if(nums[mid] < target)
+        {
+            return firstOccurance(nums, mid + 1, e, target);
+        }
+
+        else
+        {
+            return firstOccurance(nums ,s , mid-1 , target);
+        }
+    }
+
+    int lastOccurance(vector<int>& nums, int s, int e, int target)
+    {
+        // base case 
+        if(s > e)
+        {
+            return -1;
+        }
+
+        int mid = s + (e-s) / 2;
+
+        if(nums[mid] == target)
+        {
+            int rightAns = lastOccurance(nums , mid+1, e, target);
+
+            if(rightAns == -1)
+            {
+                return mid;
+            }
+
+            else
+            {
+                return rightAns;
+            }
+        }
+
+        else if(nums[mid] < target)
+        {
+            return lastOccurance(nums , mid +1 , e,target);
+        }
+
+        else
+        {
+            return lastOccurance(nums , s, mid - 1, target);
+        }
+        
+    }
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+
+        int first = firstOccurance(nums , 0 , nums.size() - 1 , target);
+
+        int last = lastOccurance(nums , 0 , nums.size() - 1, target);
+
+
+        return {first , last};
+        
+    }
+};
