@@ -1,0 +1,63 @@
+bool isPossible(vector<int>& arr, int n, int m, long long mid, int index, int studentCount,long long pageSum)
+{
+    // base case
+    if(index == n)
+    {
+        return true;
+    }
+
+    if(pageSum + arr[index] <= mid)
+    {
+        return isPossible(arr, n, m,mid, index + 1, studentCount, pageSum + arr[index]);
+    }
+
+    else
+    {
+        studentCount++;
+
+        if(studentCount > m || arr[index] > mid)
+        {
+            return false;
+        }
+
+        return isPossible(arr, n, m,mid,index + 1, studentCount, arr[index]);
+    }
+ }
+
+long long solve(vector<int>& arr, int n, int m, long long start, long long end, long long ans)
+{
+    if(start > end)
+    {
+        return ans;
+    }
+
+    long long mid = start + (end - start) / 2;
+
+    if(isPossible(arr, n, m, mid, 0, 1, 0))
+    {
+        ans = mid;
+
+        return solve(arr, n, m,start,mid - 1,ans);
+    }
+    else
+    {
+        return solve(arr, n, m, mid + 1,end, ans);
+    }
+}
+
+int findPages(vector<int>& arr, int n, int m)
+{
+    if(m > n)
+    {
+        return -1;
+    }
+
+    long long sum = 0;
+
+    for(int i = 0; i < n; i++)
+    {
+        sum += arr[i];
+    }
+
+    return solve(arr, n, m, 0, sum, -1);
+}
