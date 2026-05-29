@@ -1,0 +1,41 @@
+class Solution {
+
+    int binarySearch( int start  , int end , int n)
+    {
+
+
+        int mid = start + (end - start) / 2;
+
+       long long  int square = 1LL * mid * mid;
+
+        // base case
+        if(start > end)
+        {
+            return end;
+        }
+
+        if(square == n)
+        {
+            return mid;
+        }
+
+        if(square > n)
+        {
+            return binarySearch(start , mid - 1 , n);
+        }
+
+        else
+        {
+            int ans = mid;
+            return binarySearch(mid + 1 , end , n);
+        }   
+        
+    }
+
+
+public:
+    int mySqrt(int x) {
+
+        return binarySearch(0 , x , x);
+    }
+};
