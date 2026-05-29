@@ -1,31 +1,24 @@
-#include<iostream>
-using namespace std;
+#include <bits/stdc++.h> 
 
-void reverse(string &str, int start , int end)
+void reverse(string &str , int start , int end)
 {
-    // base case 
+    // base case
     if(start > end)
     {
-        return ;
+        return;
     }
 
     swap(str[start] , str[end]);
-    start ++ ;
+    start ++;
     end --;
 
-
-    reverse(str, start, end);
+    reverse(str,start, end);
 
 }
-
-int main()
+string reverseString(string str)
 {
-    string name = "khushi";
+    reverse(str, 0 , str.length() - 1);
 
-    reverse(name , 0 , name.length() -1);
-
-    cout << name  << endl;
-
-    return 0;
-
+    return str;
+	
 }
