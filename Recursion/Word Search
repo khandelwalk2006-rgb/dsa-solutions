@@ -1,0 +1,66 @@
+class Solution {
+
+    bool solve(vector<vector<char>>& board, string & word , int index , int x , int y , vector<vector<int>> & visited)
+    {
+        if(index == word.length())
+        {
+            return true;
+        }
+
+        int n = board.size();
+        int m = board[0].size();
+
+        if(x < 0 || x >= n || y < 0 || y >= m)
+        {
+            return false;
+        }
+
+        if(visited[x][y])
+        {
+            return false;
+        }
+
+        if(board[x][y] != word[index])
+        {
+            return false;
+        }
+
+        visited[x][y] = 1;
+
+        bool down = solve(board , word ,index + 1 , x+1 , y , visited);
+
+        bool left = solve(board , word , index + 1 , x , y-1 , visited);
+
+        bool right = solve(board , word , index + 1 , x , y+1 , visited);
+
+        bool up = solve(board , word , index + 1 , x-1 , y , visited);
+
+        visited[x][y] = 0;
+
+        return down || left || right || up;
+    }
+
+
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+
+        int n = board.size();
+        int m = board[0].size();
+
+        vector<vector<int>> visited(n , vector<int>(m,0));
+
+        for(int i = 0; i< n ; i++)
+        {
+            for(int j = 0; j< m; j++)
+            {
+                if(solve(board , word , 0 , i , j , visited))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+        
+    }
+};
