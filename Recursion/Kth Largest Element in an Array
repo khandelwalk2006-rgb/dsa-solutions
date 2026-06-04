@@ -1,0 +1,57 @@
+class Solution {
+
+    int partition(vector<int> &nums , int start , int end)
+    {
+        int pivot = nums[end];
+
+        int i = start - 1;
+
+        for(int j = start ; j < end ; j++)
+        {
+            if(nums[j] < pivot)
+            {
+                i++;
+                swap(nums[i] , nums[j]);
+            }
+        }
+
+        swap(nums[i+1] , nums[end]);
+        return i+1;
+    }
+
+    int solve(vector<int> &nums , int start , int end , int kIndex)
+    {
+        if(start <= end)
+        {
+            int p = partition(nums , start , end);
+
+            if(p == kIndex)
+            {
+                return nums[p];
+            }
+
+            else if(p > kIndex)
+            {
+                return solve(nums , 0 , p-1 , kIndex);
+            }
+
+            else
+            {
+                return solve(nums , p+1 , end , kIndex);
+            }
+        }
+
+        return -1;
+    }
+
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+
+        int n = nums.size() ;
+
+        int kIndex = n - k;
+
+        return solve(nums , 0 , n-1 , kIndex);
+        
+    }
+};
