@@ -18,7 +18,7 @@ maintain a clean, well-structured GitHub profile for **technical interviews**.
 
 ##  Language Used
 - C++
-- 
+  
 
 ##  Purpose
 - Practice DSA
