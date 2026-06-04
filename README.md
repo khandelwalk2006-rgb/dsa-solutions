@@ -1,7 +1,7 @@
 # DSA Solutions 
 
 This repository contains my Data Structures and Algorithms (DSA) solutions
-implemented in **C++**, mainly solved on **Coding Ninjas** and **GeeksforGeeks**.
+implemented in **C++**, mainly solved on **Leetcode** , **Coding Ninjas** and **GeeksforGeeks**.
 
 The aim of this repository is to build strong problem-solving skills and
 maintain a clean, well-structured GitHub profile for **technical interviews**.
