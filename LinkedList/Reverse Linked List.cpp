@@ -1,54 +1,27 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-
-
-// Time Complexity: O(n)
-// Space Complexity: O(n)  
-
-
-
-class Node {
+class Solution {
 public:
-    int data;
-    Node* next;
-    Node(int d) {
-        data = d;
-        next = NULL;
+    ListNode* reverseList(ListNode* head) {
+
+        if(head == NULL || head -> next == NULL)
+        {
+            return head;
+        }
+
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+
+        while(curr != NULL)
+        {
+            ListNode* forward = curr -> next;
+            curr -> next = prev;
+            prev = curr;
+            curr = forward;
+    
+        }
+
+        return prev;
+
+        
+        
     }
 };
-
-
-
-Node* reverseLL(Node* head) {
-    if (!head || !head->next) return head; // base case
-    Node* newHead = reverseLL(head->next);
-    head->next->next = head;
-    head->next = NULL;
-    return newHead;
-}
-
-void printLL(Node* head) {
-    while (head) {
-        cout << head->data << " -> ";
-        head = head->next;
-    }
-    cout << "NULL\n";
-}
-
-int main() {
-    Node* head = new Node(1);
-    head->next = new Node(2);
-    head->next->next = new Node(3);
-    head->next->next->next = new Node(4);
-
-    cout << "Original List:\n";
-    printLL(head);
-
-    head = reverseLL(head);
-
-    cout << "Reversed List:\n";
-    printLL(head);
-
-    return 0;
-}
