@@ -1,0 +1,34 @@
+int getLength(Node *head)
+{
+    int length = 0;
+
+    while(head != NULL)
+    {
+        length ++;
+        head = head -> next;
+    }
+
+
+    return length;
+}
+
+Node *findMiddle(Node *head) {
+
+
+    int length = getLength(head);
+    int ans = (length/2);
+  
+
+    Node * temp = head;
+
+    int cnt = 0;
+    while(cnt < ans)
+    {
+        temp = temp -> next;
+        cnt ++;
+    }
+   
+     return temp;
+   
+}
+
