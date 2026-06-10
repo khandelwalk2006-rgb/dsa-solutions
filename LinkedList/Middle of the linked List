@@ -1,34 +1,35 @@
-int getLength(Node *head)
-{
-    int length = 0;
+class Solution {
 
-    while(head != NULL)
+   ListNode* solve(ListNode* head)
+   {
+    if(head == NULL || head -> next == NULL)
     {
-        length ++;
-        head = head -> next;
+        return head;
     }
 
+    ListNode* slow = head ;
+    ListNode* fast = head -> next;
 
-    return length;
-}
-
-Node *findMiddle(Node *head) {
-
-
-    int length = getLength(head);
-    int ans = (length/2);
-  
-
-    Node * temp = head;
-
-    int cnt = 0;
-    while(cnt < ans)
+    while(fast != NULL)
     {
-        temp = temp -> next;
-        cnt ++;
-    }
-   
-     return temp;
-   
-}
+        fast = fast -> next;
+        
+        if(fast != NULL)
+        {
+            fast = fast -> next;
+        }
 
+        slow = slow -> next;
+    }
+
+    return slow;
+
+   }
+public:
+    ListNode* middleNode(ListNode* head) {
+
+        return solve(head);
+
+        
+    }
+};
