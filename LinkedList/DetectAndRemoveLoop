@@ -1,0 +1,85 @@
+
+
+Node* floyDetection (Node* head)
+{
+    if(head == NULL)
+    {
+        return NULL;
+    }
+
+    Node* slow = head;
+    Node* fast = head;
+
+    while(fast != NULL  && fast -> next != NULL)
+    {
+        slow = slow -> next;
+        fast = fast -> next -> next;
+
+
+        if(slow == fast)
+        {
+            return slow;
+        }
+    }
+
+    return NULL;
+
+}
+
+
+Node* getStartingNode(Node* head)
+{
+    if(head == NULL)
+    {
+        return NULL;
+    }
+
+    Node* intersection = floyDetection(head);
+
+    if(intersection == NULL)
+    {
+        return NULL;
+    }
+
+    Node* slow = head;
+
+    while(intersection != slow)
+    {
+        slow = slow -> next;
+        intersection = intersection -> next;
+    }
+
+    return slow;
+
+
+}
+
+
+
+Node *removeLoop(Node *head)
+{
+
+    if(head == NULL)
+    {
+        return NULL;
+    }
+
+    Node* startLoop = getStartingNode(head);
+
+    if(startLoop == NULL)
+    {
+        return head;
+    }
+   
+   Node* temp = startLoop;
+
+   while(temp -> next != startLoop)
+   {
+       temp = temp -> next;
+   }
+
+   temp -> next = NULL;
+
+   return head;
+
+}
