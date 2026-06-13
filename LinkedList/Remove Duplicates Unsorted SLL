@@ -1,5 +1,3 @@
-
-
 Node *removeDuplicates(Node *head)
 {
     if(head == NULL)
