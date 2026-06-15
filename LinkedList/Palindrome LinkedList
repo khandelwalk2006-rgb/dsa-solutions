@@ -1,28 +1,27 @@
 
 class Solution {
-    
     private:
-    
-    Node* getMid(Node* head)
+
+    ListNode* getMid(ListNode* head)
     {
-        Node* slow = head;
-        Node* fast = head -> next;
-        
+        ListNode* slow = head ;
+        ListNode* fast = head -> next ;
+
         while(fast != NULL && fast -> next != NULL)
         {
             slow = slow -> next;
             fast = fast -> next -> next;
         }
-        
+
         return slow;
     }
-    
-    Node* reverse(Node* head)
+
+    ListNode* reverse(ListNode* head)
     {
-        Node* curr = head;
-        Node* prev = NULL;
-        Node* forward = NULL;
-        
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        ListNode* forward = NULL;
+
         while(curr != NULL)
         {
             forward = curr -> next;
@@ -30,49 +29,45 @@ class Solution {
             prev = curr;
             curr = forward;
         }
-        
+
         return prev;
     }
-  public:
-    bool isPalindrome(Node *head) {
-        
+
+public:
+    bool isPalindrome(ListNode* head) {
+
         if(head == NULL || head -> next == NULL)
         {
             return true;
         }
-        
-        // middle 
-        Node* middle = getMid(head);
-        
-        
-        
-        // reverse
-        Node* temp = middle -> next;
+
+        ListNode* middle = getMid(head);
+
+        ListNode* temp = middle -> next;
         middle -> next = reverse(temp);
         
-        // compare both the halves 
-        
-        Node* head1 = head;
-        Node* head2 = middle -> next;
-        
+
+        ListNode* head1 = head;
+        ListNode* head2 = middle -> next;
+
         while(head2 != NULL)
         {
-            if(head1 -> data != head2 -> data)
+            if(head1 -> val != head2 -> val)
             {
                 return false;
             }
-            
-            head1 = head1 -> next;
-            head2 = head2 -> next;
-            
+
+            else
+            {
+                head1 = head1 -> next;
+                head2 = head2 -> next;
+            }
+
         }
-        
-        // make again orginal ll 
-        
-          temp = middle -> next;
-        middle -> next = reverse(temp);
-        
-        
-        return true;
+
+            temp = middle -> next;
+            middle -> next = reverse(temp);
+
+            return true;
     }
 };
