@@ -1,108 +1,74 @@
 class Solution {
-    
-    private:
-    Node* reverse(Node* head)
-    {
-        Node* curr = head;
-        Node* prev = NULL;
-        Node* forward = NULL;
-        
-        
-        
-        while(curr != NULL)
-        {
-            forward = curr -> next;
-            curr -> next = prev;
+
+private:
+
+    ListNode* reverse(ListNode* head) {
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+
+        while (curr != NULL) {
+            ListNode* forward = curr->next;
+            curr->next = prev;
             prev = curr;
             curr = forward;
         }
-        
+
         return prev;
     }
-    
-    Node* removeLeadingZeroes(Node* head)
-    {
-        while(head != NULL && head -> data == 0)
-        {
-            head = head -> next;
-        }
-        
-        if(head == NULL)
-        {
-            return new Node(0);
-            
-        }
-        
-        return head;
-        
-    }
-    
-    void insertAtTail(Node* &head , Node* &tail , int data)
-    {
-        Node* temp = new Node(data);
-        
-        if(head == NULL)
-        {
-            head = temp;
-            tail = temp;
-        }
-        
-        else
-        {
-            tail -> next = temp;
-            tail = temp;
-        }
-    }
-    
-    Node* add(Node* head1 , Node* head2)
-    {
+
+    ListNode* add(ListNode* l1, ListNode* l2) {
+
         int carry = 0;
-        
-        Node* ansHead = NULL;
-        Node* ansTail = NULL;
-        
-        while(head1 != NULL || head2 != NULL || carry)
-        {
+
+        ListNode* ansHead = NULL;
+        ListNode* ansTail = NULL;
+
+        while (l1 != NULL || l2 != NULL || carry) {
+
             int sum = carry;
-            
-            if(head1 != NULL)
-            {
-                sum += head1 -> data;
-                head1 = head1 -> next;
+
+            if (l1 != NULL) {
+                sum += l1->val;
+                l1 = l1->next;
             }
-            
-            if(head2 != NULL)
-            {
-                sum += head2 -> data;
-                head2 = head2 -> next;
+
+            if (l2 != NULL) {
+                sum += l2->val;
+                l2 = l2->next;
             }
-            
-            int digit = sum %10;
+
+            int digit = sum % 10;
             carry = sum / 10;
+
+            ListNode* temp = new ListNode(digit);
+
+            if (ansHead == NULL) {
+                ansHead = ansTail = temp;
             
-            insertAtTail(ansHead , ansTail , digit);
+            }
+             else
+             {
+                ansTail->next = temp;
+                ansTail = temp;
+            }
         }
-        
+
         return ansHead;
     }
-  public:
-    Node* addTwoLists(Node* head1, Node* head2) {
-        
-        head1 = removeLeadingZeroes(head1);
-        head2 = removeLeadingZeroes(head2);
-        
-        head1 = reverse(head1);
-        head2 = reverse(head2);
-        
-        Node* ans = add(head1 , head2);
-        
+
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+
+        // step 1: reverse both lists
+        l1 = reverse(l1);
+        l2 = reverse(l2);
+
+        // step 2: add like LC2
+        ListNode* ans = add(l1, l2);
+
+        // step 3: reverse result
         ans = reverse(ans);
-        
-        ans = removeLeadingZeroes(ans);
-        
-        
+
         return ans;
-      
-        
     }
 };
