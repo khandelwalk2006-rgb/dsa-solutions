@@ -1,97 +1,92 @@
-node* findMid(node* head)
-{
-    node* slow = head;
-    node* fast = head -> next;
 
-    while(fast != NULL && fast -> next != NULL)
+class Solution {
+    private:
+    ListNode* getMid(ListNode* head)
     {
-         slow = slow -> next;
-        fast = fast -> next -> next;
-       
+        ListNode* slow = head;
+        ListNode* fast = head -> next;
+
+        while(fast != NULL && fast -> next != NULL)
+        {
+            slow = slow -> next;
+            fast = fast -> next -> next;
+        }
+
+        return slow;
     }
 
-    return slow;
-}
-
-node* merge(node* left , node* right)
-{
-    if(left == NULL)
+    ListNode* merge(ListNode* left , ListNode* right)
     {
-        return right;
-    }
+        if(left == NULL)
+        {
+            return right;
+        }
 
-    if(right == NULL)
-    {
-        return left;
-    }
+        if(right == NULL)
+        {
+            return left;
+        }
 
-    node* ans = new node(-1);
-    node* temp = ans;
+        ListNode* ans = new ListNode(-1);
+        ListNode* temp = ans;
+
+        while(left != NULL && right != NULL)
+        {
+            if(left -> val < right -> val)
+            {
+                temp -> next = left;
+                temp = left;
+                left = left -> next;
+            }
+
+            else
+            {
+                temp -> next = right;
+                temp = right;
+                right = right -> next;
+            }
+        }
 
 
-    // merge 2 sorted linked list
-    while(left != NULL && right != NULL)
-    {
-        if(left -> data < right -> data)
+        while(left != NULL)
         {
             temp -> next = left;
             temp = left;
             left = left -> next;
         }
 
-        else
+        while(right != NULL)
         {
             temp -> next = right;
             temp = right;
             right = right -> next;
         }
 
+        ans = ans -> next;
+        return ans;
     }
 
-    while(left != NULL)
-    {
-        temp -> next = left;
-        temp = left;
-        left = left -> next;
+public:
+    ListNode* sortList(ListNode* head) {
+
+        if(head == NULL || head -> next == NULL)
+        {
+            return head;
+        }
+
+        ListNode* mid = getMid(head);
+
+        ListNode* left = head;
+        ListNode* right = mid -> next;
+        mid -> next = NULL;
+
+        left = sortList(left);
+        right = sortList(right);
+
+
+        ListNode * result = merge(left , right);
+
+        return result;
+        
     }
-
-    while(right != NULL)
-    {
-        temp -> next = right;
-        temp = right;
-        right = right -> next;
-    }
-
-    ans = ans -> next;
-    return ans;
-}
-
-
-node* mergeSort(node *head) {
-   
-     // base case
-    if(head == NULL || head -> next == NULL)
-    {
-        return head;
-    }
-
-
-
-    // break linked list into two  halves 
-    node* mid = findMid(head);
-
-    node* left = head;
-    node* right = mid -> next;
-    mid -> next = NULL;
-
-
-    // recursive calls to sort both halves
-    left = mergeSort(left);
-    right = mergeSort(right);
-
-    //  merge both left and right halves
-
-    node* result = merge(left, right);
-
-    return result;
-}
+};
