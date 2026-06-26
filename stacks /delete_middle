@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Time Complexity: O(N)
-// Space Complexity: O(N)
-
 void solve(stack<int>& inputStack, int count, int size)
 {
     if (count == size / 2)
