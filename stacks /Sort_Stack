@@ -1,10 +1,6 @@
 #include <stack>
 using namespace std;
 
-// Time Complexity: O(n^2)
-// Space Complexity: O(n)
-
-
 void sortedInsert(stack<int> &stack, int num)
 {
     if(stack.empty() || stack.top() < num)
