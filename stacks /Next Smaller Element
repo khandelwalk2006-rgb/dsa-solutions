@@ -2,10 +2,6 @@
 #include <vector>
 using namespace std;
 
-// Time Complexity: O(n)
-// Space Complexity: O(n)
-
-
 vector<int> nextSmallerElement(vector<int> &arr, int n)
 {
     stack<int> s;
