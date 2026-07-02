@@ -31,10 +31,6 @@ public:
         freespot = 0;
     }
 
-    // Time Complexity: O(1)
-    // Space Complexity: O(1)
-
-
     bool push(int x, int m) {
         if(freespot == -1)
             return false;
@@ -48,9 +44,6 @@ public:
 
         return true;
     }
-
-    // Time Complexity: O(1)
-    // Space Complexity: O(1)
 
 
     int pop(int m) {
