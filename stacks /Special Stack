@@ -7,9 +7,6 @@ class SpecialStack {
 
 public:
 
-    // Time Complexity: O(1)
-    // Space Complexity: O(n)
-
     void push(int data) {
         if (s.empty()) {
             s.push(data);
@@ -27,9 +24,6 @@ public:
         }
     }
 
-    // Time Complexity: O(1)
-    // Space Complexity: O(1)
-
     int pop() {
         if (s.empty())
             return -1;
@@ -46,9 +40,6 @@ public:
         }
     }
 
-    // Time Complexity: O(1)
-    // Space Complexity: O(1)
-
     int top() {
         if (s.empty())
             return -1;
@@ -57,15 +48,10 @@ public:
         return (curr < mini) ? mini : curr;
     }
 
-    // Time Complexity: O(1)
-    // Space Complexity: O(1)
 
     bool isEmpty() {
         return s.empty();
     }
-
-    // Time Complexity: O(1)
-    // Space Complexity: O(1)
     int getMin() {
         if (s.empty())
             return -1;
