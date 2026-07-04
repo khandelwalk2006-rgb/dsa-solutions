@@ -1,10 +1,3 @@
-/*
-Time Complexity:
-  enqueue()  -> O(1)
-  dequeue()  -> O(1)
-Space Complexity: O(N)   // using array of size N
-*/
-
 #include <bits/stdc++.h>
 using namespace std;
 
