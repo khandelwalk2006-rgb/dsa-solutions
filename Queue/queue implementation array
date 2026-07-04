@@ -1,0 +1,113 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Queue {
+
+    int arr[100001];
+    int qfront;
+    int rear;
+    int size;
+
+public:
+
+    Queue() {
+        qfront = 0;
+        rear = 0;
+        size = 100001;
+    }
+
+    bool isEmpty() {
+        return qfront == rear;
+    }
+
+    void enqueue(int data) {
+
+        if (rear == size) {
+            cout << "Queue is Full\n";
+        }
+        else {
+            arr[rear] = data;
+            rear++;
+        }
+    }
+
+    int dequeue() {
+
+        if (qfront == rear)
+            return -1;
+
+        int ans = arr[qfront];
+        qfront++;
+
+        if (qfront == rear) {
+            qfront = 0;
+            rear = 0;
+        }
+
+        return ans;
+    }
+
+    int front() {
+
+        if (qfront == rear)
+            return -1;
+
+        return arr[qfront];
+    }
+};#include <bits/stdc++.h>
+using namespace std;
+
+class Queue {
+
+    int arr[100001];
+    int qfront;
+    int rear;
+    int size;
+
+public:
+
+    Queue() {
+        qfront = 0;
+        rear = 0;
+        size = 100001;
+    }
+
+    bool isEmpty() {
+        return qfront == rear;
+    }
+
+    void enqueue(int data) {
+
+        if (rear == size) {
+            cout << "Queue is Full\n";
+        }
+        else {
+            arr[rear] = data;
+            rear++;
+        }
+    }
+
+    int dequeue() {
+
+        if (qfront == rear)
+            return -1;
+
+        int ans = arr[qfront];
+        qfront++;
+
+        if (qfront == rear) {
+            qfront = 0;
+            rear = 0;
+        }
+
+        return ans;
+    }
+
+    int front() {
+
+        if (qfront == rear)
+            return -1;
+
+        return arr[qfront];
+    }
+};
