@@ -1,0 +1,119 @@
+class kQueues {
+    
+    int n, k;
+    int *arr;
+    int *front;
+    int *rear;
+    int *next;
+    int freespot;
+
+  public:
+    kQueues(int n, int k) {
+        
+        
+        this -> n = n;
+        this -> k = k;
+        
+        
+        arr = new int[n];
+        front = new int[k];
+        rear = new int[k];
+        next = new int[n];
+        
+        
+        for(int  i = 0; i< k ; i++)
+        {
+            front[i] = rear[i] = -1;
+        }
+        
+        for(int i = 0 ; i < n-1 ; i++)
+        {
+            next[i] = i + 1;
+        }
+        
+        next[n-1] = -1;
+        
+        freespot = 0;
+        
+    }
+
+    void enqueue(int x, int i) {
+        
+        //overflow 
+        if(freespot == -1)
+        {
+            return ;
+        }
+        
+        
+        // find index
+        int index = freespot;
+        
+        //update freespot
+        freespot = next[index];
+        
+        
+        // check first element 
+        if(front[i] == -1)
+        {
+            front[i] = index;
+        }
+        
+        else
+        {
+            next[rear[i]] = index;
+        }
+        
+        next[index] = -1;
+        
+        
+        // update rear 
+        rear[i] = index;
+        
+        
+        // push element
+        arr[index] = x;
+        
+        
+    }
+
+    int dequeue(int i) {
+        
+        if(front[i] == -1)
+        {
+            return -1;
+        }
+        
+        int index = front[i];
+        
+        
+        //front update
+        front[i] = next[index];
+        
+        // if queue is empty
+        
+        if(front[i] == -1) 
+        {
+            rear[i]  = -1;
+        }
+        
+        next[index] = freespot;
+        
+        freespot = index;
+        
+        return arr[index];
+      
+    }
+
+    bool isEmpty(int i) {
+        
+        return front[i] == -1;
+    }
+
+    bool isFull() {
+        
+        return freespot == -1;
+        
+        
+    }
+};
