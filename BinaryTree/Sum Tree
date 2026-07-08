@@ -1,0 +1,49 @@
+
+pair<bool ,int> solve(Node* root)
+{
+    // base case
+    if(root == NULL)
+    {
+        return {true, 0};
+    }
+    
+    if(root -> left == NULL && root -> right == NULL)
+    {
+        return {true , root -> data};
+    }
+    
+    pair<bool , int> left  = solve(root -> left);
+    pair<bool , int> right = solve(root -> right);
+    
+    bool leftAns = left.first;
+    bool rightAns = right.first;
+    
+    int leftSum = left.second;
+    int rightSum = right.second;
+    
+    bool condition = (root -> data == leftSum + rightSum );
+    
+    
+    pair<bool , int> ans;
+    
+    ans.second = leftSum + rightSum + root -> data ;
+    
+    if(leftAns && rightAns && condition)
+    {
+         ans.first = true;
+    }
+    
+    else
+    {
+        ans.first = false;
+    }
+
+    return ans;
+}
+class Solution {
+  public:
+    bool isSumTree(Node* root) {
+        
+        return solve(root).first;       
+    }
+};
