@@ -1,0 +1,35 @@
+class Solution {
+
+    pair<int, int> diameterFast(TreeNode* root)
+    {
+        // base case 
+        if(root == NULL)
+        {
+             return {0,0};
+        }
+
+        pair<int, int> left = diameterFast(root -> left);
+        pair<int, int> right = diameterFast(root -> right);
+
+
+        pair<int,int> ans;
+
+        int opt1 = left.first;
+        int opt2 = right.first;
+        int opt3 = left.second + right.second + 1;
+
+        ans.first = max(opt1 , max(opt2 , opt3));
+        ans.second = max(left.second , right.second) + 1;
+
+
+        return ans;
+    }
+
+
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+
+        return diameterFast(root).first - 1;
+        
+    }
+};
