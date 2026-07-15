@@ -1,0 +1,88 @@
+
+class Solution {
+
+    TreeNode* minVal(TreeNode* root)
+    {
+        TreeNode* temp = root ;
+
+        while(temp -> left != NULL)
+        {
+            temp = temp -> left;
+        }
+        
+        return temp;
+
+    }
+
+
+    TreeNode* deleteFromBST(TreeNode* root , int key)
+    {
+      
+
+        if(root == NULL)
+        {
+            return NULL ;
+        }
+
+        if(root -> val == key)
+        {
+          
+            if(root -> left == NULL && root -> right == NULL)
+            {
+                delete root;
+                return NULL;
+
+            }
+
+
+            
+            if(root -> left != NULL && root -> right == NULL)
+            {
+                TreeNode* temp = root -> left;
+                delete root;
+                return temp;
+            }
+
+        
+            if(root -> left == NULL && root -> right != NULL)
+            {
+                TreeNode* temp = root -> right;
+                delete root;
+                return temp;
+
+            }
+
+            // 2 child
+            if(root -> left != NULL && root -> right != NULL)
+            {
+                TreeNode* min = minVal(root -> right);
+                root -> val = min -> val;
+                root ->  right = deleteFromBST(root -> right ,  min ->val);
+
+                return root ;
+            }
+        }
+
+
+        else if(root -> val > key)
+        {
+            root -> left = deleteFromBST(root -> left , key);
+        }
+
+        else
+        {
+            root -> right = deleteFromBST(root -> right , key);
+        }
+
+        return root;
+
+    }
+
+
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+
+        return deleteFromBST( root ,  key);
+        
+    }
+};
