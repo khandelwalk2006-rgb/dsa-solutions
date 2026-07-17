@@ -1,0 +1,44 @@
+ class Solution {
+
+    void inorder(TreeNode* root , vector<int> &in)
+    {
+        // base case
+        if(root == NULL)
+        {
+            return ;
+        }
+
+        inorder(root -> left , in);
+        in.push_back(root -> val);
+        inorder(root -> right , in);
+    }
+
+public:
+    TreeNode* increasingBST(TreeNode* root) {
+
+        vector<int> inorderVal;
+
+        inorder(root , inorderVal);
+
+        int n = inorderVal.size(); 
+
+        TreeNode* newNode = new TreeNode(inorderVal[0]);
+
+        TreeNode* curr = newNode;
+
+        for(int i = 1 ; i < n ; i++)
+        {
+            TreeNode* temp = new TreeNode(inorderVal[i]);
+
+            curr -> left = NULL;
+            curr -> right = temp;
+            curr = temp;
+        }
+
+        curr -> left = NULL;
+        curr -> right = NULL;
+
+        return newNode;
+      
+    }
+};
