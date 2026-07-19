@@ -1,4 +1,4 @@
-s Solution {
+class Solution {
 
     void inorder(TreeNode *  root , vector<int> &in)
     {
