@@ -1,0 +1,44 @@
+
+class Solution {
+    
+    void inorder(Node* root , vector<int>& arr)
+    {
+        if(root == NULL)
+        {
+            return;
+        }
+        
+        inorder(root -> left , arr);
+        arr.push_back(root -> data);
+        inorder(root -> right , arr);
+        
+    }
+    
+    void postorder(Node* root , vector<int> &arr , int &index)
+    {
+        if(root == NULL)
+        {
+            return ;
+        }
+        
+        postorder(root -> left , arr, index);
+        postorder(root -> right , arr , index);
+        
+        root -> data = arr[index];
+        index ++ ;
+    }
+    
+    
+  public:
+    void convertToMaxHeapUtil(Node* root) {
+        
+        vector<int> arr;
+        
+        inorder(root , arr);
+        
+        int index = 0;
+        
+        postorder(root , arr , index);
+       
+    }
+};
