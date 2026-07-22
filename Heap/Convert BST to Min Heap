@@ -1,0 +1,43 @@
+
+void inorder(BinaryTreeNode* root , vector<int> &arr)
+{
+	if(root == NULL)
+	{
+		return ;
+	}
+
+	inorder(root -> left , arr);
+	arr.push_back(root -> data);
+	inorder(root -> right , arr);
+}
+
+void preorder(BinaryTreeNode* root ,vector<int> &arr , int &index)
+{
+	if(root == NULL)
+	{
+		return ;
+	}
+
+	root -> data = arr[index] ;
+	index ++;
+
+	preorder(root -> left , arr, index);
+
+	preorder(root -> right , arr ,index);
+}
+
+
+
+BinaryTreeNode* convertBST(BinaryTreeNode* root)
+{
+	vector<int> arr;
+
+	inorder(root , arr);
+
+	int index = 0;
+
+	preorder(root , arr , index);
+
+
+	return root;
+}
