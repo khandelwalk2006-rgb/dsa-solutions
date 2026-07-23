@@ -1,0 +1,33 @@
+class Solution {
+    
+    void reverse(vector<int> &arr , int l , int r)
+    {
+       while(l <= r)
+       {
+           
+            swap(arr[l] , arr[r]);
+            l++;
+            r--;
+        }
+    }
+  public:
+    void reverseInGroups(vector<int> &arr, int k) {
+        
+        int n = arr.size();
+        
+        for(int l = 0 , r = k -1  ; l< n ;  l += k , r += k)
+        {
+            if(r >= n)
+            {
+                r = n-1;
+            }
+            
+            
+            reverse(arr , l , r);
+        }
+        
+        
+        
+        
+    }
+};
