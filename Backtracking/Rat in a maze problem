@@ -1,0 +1,73 @@
+#include <bits/stdc++.h> 
+
+void solve(int x , int y , vector<string> &ans, int n , vector<vector<int>>&arr , string &path , 
+     vector<vector<bool>>& visited)
+     {
+         // boundary check
+         if(x < 0 || x >=n  || y < 0 || y >= n)
+         {
+             return ;
+         }
+
+         // visited check
+         if(arr[x][y] == 0 || visited[x][y])
+         {
+             return ;
+         }
+
+         if(x == n-1 && y == n-1)
+         {
+             ans.push_back(path);
+             return ;
+         }
+
+         visited[x][y] = true;
+
+        // down
+         path.push_back('D');
+         solve(x+1 , y , ans , n , arr ,path , visited);
+         path.pop_back();
+
+         // left
+
+         path.push_back('L');
+         solve(x, y-1 , ans , n , arr ,path , visited);
+         path.pop_back();
+
+         // right
+
+         path.push_back('R');
+         solve(x , y+1 , ans , n , arr , path ,visited);
+         path.pop_back();
+
+         // up
+
+         path.push_back('U');
+         solve(x-1 , y , ans ,n , arr, path, visited);
+         path.pop_back();
+
+
+         visited[x][y] = false;
+      }
+
+
+
+vector < string > searchMaze(vector < vector < int >> & arr, int n) {
+    
+    vector<string> ans;
+
+    vector<vector<bool>> visited(n , vector<bool> (n , false));
+
+    if(arr[0][0] == 0)
+    {
+        return ans ;
+    }
+
+    string path = "";
+
+    solve(0 , 0 , ans , n , arr ,  path , visited);
+
+    sort(ans.begin() , ans.end());
+
+    return ans;
+}
