@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<string> readBinaryWatch(int turnedOn) {
+
+        vector<string> ans;
+
+        for(int hours = 0 ; hours < 12 ; hours ++)
+        {
+            for(int minute = 0 ; minute < 60; minute ++)
+            {
+                int bit = __builtin_popcount(hours) + __builtin_popcount(minute);
+
+                if(bit == turnedOn)
+                {
+                    string time = to_string(hours) + ":";
+
+                    if(minute < 10)
+                    {
+                        time += "0";
+                    }
+
+                    time += to_string(minute);
+
+                    ans.push_back(time);
+                }
+          }
+        
+        }
+        return ans;
+        
+    }
+};
