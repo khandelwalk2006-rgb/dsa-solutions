@@ -1,0 +1,49 @@
+class Solution {
+  public:
+    int search(string &pat, string &txt) {
+       
+       vector<int> patFreq(26 , 0);
+       vector<int> window(26 , 0);
+       
+       for(int i = 0; i < pat.length() ; i ++)
+       {
+           patFreq[pat[i] - 'a'] ++;
+       }
+       
+       int k = pat.length();
+       int count = 0;
+       
+       for(int i = 0 ; i < k;  i++)
+       {
+           
+          window[txt[i] - 'a'] ++;
+       }
+       
+       if(patFreq == window)
+       {
+           count ++;
+       }
+       
+       // sliding window 
+       
+       for(int i = k ; i < txt.length() ; i ++)
+       {
+           // left remove
+           window[txt[i-k] - 'a'] --;
+           
+           // right add
+           window[txt[i] - 'a'] ++;
+           
+           if(patFreq == window)
+           {
+               count ++;
+           }
+       }
+       
+       return count ;
+    
+        
+        
+        
+    }
+};
