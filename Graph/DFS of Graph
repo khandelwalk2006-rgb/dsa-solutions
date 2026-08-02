@@ -1,0 +1,35 @@
+class Solution {
+    
+    void dfsTraversal(int startNode , vector<vector<int>> &adj , vector<int>&ans , vector<bool>  &visited)
+    {
+        visited[startNode] = true;
+        
+        ans.push_back(startNode);
+        
+        for(auto neighbour : adj[startNode])
+        {
+            if(!visited[neighbour])
+            {
+                dfsTraversal(neighbour , adj , ans , visited);
+            }
+        }
+    }
+    
+    
+  public:
+    vector<int> dfs(vector<vector<int>>& adj) {
+        
+        int V = adj.size();
+        
+        vector<int> ans;
+        
+        vector<bool> visited(V , false);
+        
+        dfsTraversal(0 , adj , ans , visited);
+        
+        
+        return ans;
+       
+        
+    }
+};
