@@ -1,0 +1,61 @@
+class Solution {
+    
+    bool dfs(int startNode , vector<vector<int>> &adj , vector<bool> &visited , vector<bool> &pathVisited)
+    {
+        visited[startNode] = true;
+        pathVisited[startNode] = true;
+        
+        for(auto neighbour : adj[startNode])
+        {
+            if(!visited[neighbour])
+            {
+                if(dfs(neighbour , adj , visited , pathVisited))
+                {
+                    return true;
+                }
+                
+            }
+            
+            else if(pathVisited[neighbour])
+            {
+                return true;
+            }
+        }
+        
+        pathVisited[startNode] = false;
+        
+        return false;
+    }
+    
+    
+  public:
+    bool isCyclic(int V, vector<vector<int>> &edges) {
+        
+        vector<vector<int>> adj(V);
+        
+        for(int i = 0 ; i < edges.size() ; i ++)
+        {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            
+            adj[u].push_back(v);
+        }
+        
+        vector<bool> visited(V, false);
+        vector<bool> pathVisited(V , false);
+        
+        for(int i = 0 ; i < V; i ++)
+        {
+            if(!visited[i])
+            {
+                if(dfs(i , adj , visited , pathVisited))
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+        
+    }
+};
