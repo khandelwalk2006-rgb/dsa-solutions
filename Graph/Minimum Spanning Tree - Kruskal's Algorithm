@@ -1,0 +1,99 @@
+class DSU
+{
+    public:
+    vector<int> parent;
+    vector<int> rank ;
+    
+   DSU(int n)
+   {
+       parent.resize(n);
+       rank.resize(n , 0 );
+       
+       for(int i = 0 ; i < n ; i ++)
+       {
+           parent[i] = i;
+       }
+   }
+    
+    int find(int x)
+    {
+        if(parent[x] == x)
+        {
+            return x;
+        }
+        
+        return parent[x] = find(parent[x]);
+        
+        
+    }
+    
+    
+    void unite(int a , int b)
+    {
+        a = find(a);
+        b = find(b);
+        
+        if(a == b)
+        {
+            return ;
+        }
+        
+        
+        if(rank[a] < rank[b])
+        {
+            parent[a] = b;
+        }
+        
+        else if(rank[a] > rank[b])
+        {
+            parent[b] = a;
+        }
+        
+        else
+        {
+            parent[b] = a;
+            rank[a] ++;
+        }
+    }
+
+};
+
+
+class Solution {
+  public:
+    int kruskalsMST(int V, vector<vector<int>> &edges) {
+        
+     sort(edges.begin() , edges.end() , [](vector<int> &a , vector<int>&b )
+     {
+         return a[2] < b[2];
+     });
+     
+     DSU dsu(V);
+     
+     int ans = 0;
+     int count = 0 ;
+     
+     for(auto &edge : edges)
+     {
+         int u = edge[0];
+         int v = edge[1];
+         int wt = edge[2];
+         
+         if(dsu.find(u) != dsu.find(v))
+         {
+             ans += wt;
+             count ++;
+             
+             dsu.unite(u , v);
+             
+             if(count == V -1)
+             {
+                 break;
+             }
+         }
+     }
+     
+     return ans;
+        
+    }
+};
