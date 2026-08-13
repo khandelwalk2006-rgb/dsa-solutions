@@ -1,0 +1,60 @@
+class Solution {
+    
+    bool dfs(int node , int parent , vector<vector<int>> &adj , vector<int> &visited , int c , int d)
+    {
+        visited[node] = 1;
+        
+        if(node == d)
+        {
+            return true;
+        }
+        
+        for(auto &neighbour : adj[node])
+        {
+            if(c == node && d == neighbour || c == neighbour && d == node)
+            {
+                continue ;
+            }
+            
+            
+            if(!visited[neighbour])
+            {
+                if(dfs(neighbour , parent,  adj , visited , c , d))
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+        
+     
+    }
+    
+    
+  public:
+    bool isBridge(int V, vector<vector<int>> &edges, int c, int d) {
+        
+        vector<vector<int>> adj(V);
+        
+        for(auto &edge : edges)
+        {
+            int u = edge[0];
+            int v = edge[1];
+            
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+            
+            
+        }
+        
+        vector<int> visited(V , 0);
+        
+        bool reachable = dfs(c , -1 , adj , visited , c , d);
+        
+        
+        return !reachable;
+    
+        
+    }
+};
