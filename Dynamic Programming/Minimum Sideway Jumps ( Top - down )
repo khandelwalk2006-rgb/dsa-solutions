@@ -1,0 +1,54 @@
+class Solution {
+
+    int solve(vector<int> &obstacles , int position , int currLane , vector<vector<int>> &dp)
+    {
+        int n = obstacles.size() - 1 ;
+
+        // base case
+        if(position == n)
+        {
+            return 0 ;
+        }
+
+        if(obstacles[position + 1] != currLane)
+        {
+            return solve(obstacles , position + 1 , currLane, dp );
+        
+        }
+
+        if(dp[currLane][position] != -1)
+        {
+            return dp[currLane][position];
+        }
+
+        
+
+        else
+        {
+
+            int ans = INT_MAX;
+            for(int i = 1; i <= 3 ; i ++)
+            {
+                if(currLane != i && obstacles[position] != i)
+                {
+                    ans = min(ans , 1 + solve(obstacles , position , i, dp ));
+                }
+            }
+
+            dp[currLane][position] = ans ;
+
+            return  dp[currLane][position] ;
+        }
+
+    }
+
+public:
+    int minSideJumps(vector<int>& obstacles) {
+
+        vector<vector<int>> dp(4 , vector<int>(obstacles.size() ,-1));
+
+        return solve(obstacles , 0 , 2, dp);
+
+        
+    }
+};
