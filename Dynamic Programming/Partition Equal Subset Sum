@@ -1,0 +1,64 @@
+class Solution {
+
+    bool solve(int index , vector<int> &nums , int target , vector<vector<int>> &dp)
+    {
+        if(index >= nums.size())
+        {
+            return 0 ;
+        }
+
+        if(target < 0)
+        {
+            return 0 ;
+        }
+
+        if(target == 0)
+        {
+            return 1  ;
+        }
+
+        if(dp[index][target] != -1)
+        {
+            return dp[index][target] ;
+        }
+
+        bool include = solve(index + 1 , nums , target - nums[index] ,dp);
+
+        bool exclude = solve(index + 1 , nums , target  - 0 , dp);
+
+        dp[index][target] =  include || exclude ;
+
+        return dp[index][target] ;
+
+
+    }
+
+
+public:
+    bool canPartition(vector<int>& nums) {
+
+        int total = 0 ;
+
+        for(int i =0 ; i < nums.size(); i ++)
+        {
+            total += nums[i];
+        }
+
+        // total  = odd 
+        if(total % 2 != 0)
+        {
+            return false ;
+        }
+
+        int target = total / 2 ; 
+
+        int n = nums.size() ; 
+
+        vector<vector<int>> dp(n + 1 , vector<int>(target + 1 , -1));
+
+        return solve(0 , nums , target , dp); 
+        
+
+
+    }
+};
