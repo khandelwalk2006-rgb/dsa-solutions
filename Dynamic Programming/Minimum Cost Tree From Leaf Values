@@ -1,0 +1,56 @@
+class Solution {
+
+    int solve(int start , int end , vector<int> &arr , vector<vector<int>> &dp)
+    {
+        if(start == end)
+        {
+            return 0 ;
+        }
+
+        if(dp[start][end] != -1)
+        {
+            return dp[start][end];
+        }
+
+        
+
+        int ans = INT_MAX;
+
+        for(int k = start ; k < end ; k ++)
+        {
+            int leftMax = 0 ;
+
+            for(int i = start ; i <= k ; i ++)
+            {
+                leftMax = max(leftMax , arr[i]);
+            }
+
+            int rightMax = 0;
+
+            for(int i = k + 1 ; i <= end ; i++)
+            {
+                rightMax = max(rightMax , arr[i]);
+            }
+
+            int cost = solve(start , k , arr , dp)  + solve(k + 1 , end , arr , dp) + leftMax * rightMax;
+
+            ans = min(ans , cost);
+
+            dp[start][end] = ans ;
+        }
+
+          return dp[start][end] ;
+    }
+
+
+public:
+    int mctFromLeafValues(vector<int>& arr) {
+
+        int n = arr.size() ;
+
+        vector<vector<int>> dp(n + 1 , vector<int>(n + 1 , -1));
+
+        return solve(0 , arr.size() - 1 , arr , dp);
+        
+    }
+};
