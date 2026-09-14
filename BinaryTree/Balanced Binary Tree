@@ -1,49 +1,40 @@
+
 class Solution {
 
-    private:
-
-    pair<bool, int> isBalanceFast(TreeNode* root)
+    int height(TreeNode* root)
     {
-        // base case
         if(root == NULL)
         {
-            return {true, 0};
+            return NULL;
         }
 
-        pair<bool , int > left = isBalanceFast(root -> left);
-        pair<bool , int > right = isBalanceFast(root -> right);
-
-
-        bool leftAns = left.first;
-        bool rightAns = right.first;
-
-        bool diff =  abs(left.second - right.second) <= 1;
-
-
-        pair<bool , int > ans;
-        ans.second = max(left.second , right.second) + 1;
-
-
-        if(leftAns && rightAns && diff)
+        int left = height(root -> left);
+        
+        if(left == -1)
         {
-            ans.first = 1;
+            return - 1 ;
         }
 
-        else
+        int right = height(root -> right); 
+
+        if(right == -1)
         {
-            ans.first = 0;
+            return -1 ;
+
         }
 
+        if(abs(left - right) > 1)
+        {
+            return -1 ;
+        }
 
-        return ans;
+        return 1 + max(left , right) ; 
     }
-
-
 
 public:
     bool isBalanced(TreeNode* root) {
 
-        return isBalanceFast(root).first;
+        return height(root) != -1 ; 
         
     }
 };
