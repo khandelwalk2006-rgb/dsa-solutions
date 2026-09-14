@@ -1,35 +1,31 @@
+
+ 
 class Solution {
 
-    pair<int, int> diameterFast(TreeNode* root)
+    int solve(TreeNode* root , int &diameter)
     {
-        // base case 
         if(root == NULL)
         {
-             return {0,0};
+            return 0 ;
         }
 
-        pair<int, int> left = diameterFast(root -> left);
-        pair<int, int> right = diameterFast(root -> right);
+        int left = solve(root -> left , diameter ) ;
+        int right = solve(root -> right , diameter) ; 
 
+        diameter = max(diameter , left + right) ; 
 
-        pair<int,int> ans;
-
-        int opt1 = left.first;
-        int opt2 = right.first;
-        int opt3 = left.second + right.second + 1;
-
-        ans.first = max(opt1 , max(opt2 , opt3));
-        ans.second = max(left.second , right.second) + 1;
-
-
-        return ans;
+        return max(left , right ) + 1 ; 
     }
 
 
 public:
     int diameterOfBinaryTree(TreeNode* root) {
 
-        return diameterFast(root).first - 1;
+        int diameter = 0 ; 
+
+        solve(root , diameter) ; 
+
+        return diameter ;
         
     }
 };
