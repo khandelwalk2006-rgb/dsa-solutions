@@ -1,0 +1,52 @@
+class Solution {
+  public:
+    vector<int> jobSequencing(vector<int> &deadline, vector<int> &profit) {
+        
+        int n = deadline.size() ;
+        
+        vector<pair<int , int>> jobs; 
+        
+        for(int i = 0 ; i < n ; i ++)
+        {
+            jobs.push_back({profit[i] , deadline[i]}) ; 
+        }
+        
+        
+        // descending order
+        sort(jobs.rbegin() , jobs.rend());
+        
+        int maxDeadline = 0 ; 
+        
+        for(int i = 0 ; i < n ; i ++)
+        {
+            maxDeadline = max(maxDeadline , deadline[i]) ; 
+        }
+        
+        int count = 0 ; 
+        int totalProfit = 0 ;
+        
+        vector<int> slots(maxDeadline + 1 , -1) ;
+        
+        for(int i = 0 ; i < n ; i ++)
+        {
+            int currProfit = jobs[i].first;
+            int currDeadline = jobs[i].second; 
+            
+            for(int j = currDeadline ; j >= 1 ; j --)
+            {
+                if(slots[j] == -1)
+                {
+                    slots[j] = currProfit ; 
+                    count ++ ; 
+                    totalProfit += currProfit ; 
+                    break ;
+                    
+                }
+            }
+        }
+        
+        return {count , totalProfit} ;
+        
+        
+    }
+};
