@@ -1,0 +1,38 @@
+class Solution {
+  public:
+    vector<int> maxMeetings(vector<int> &s, vector<int> &f) {
+        
+        vector<pair<int , int >> meeting ;
+        
+        for(int i = 0 ; i < s.size() ; i ++)
+        {
+            meeting.push_back({f[i] , i +1 });
+        }
+        
+        sort(meeting.begin() , meeting.end()) ; 
+        
+        int freeTime = -1 ;
+        int count = 0 ;
+        
+        vector<int> ans ;
+        
+        for(int i = 0 ; i < meeting.size() ; i ++)
+        {
+            int index = meeting[i].second;
+            
+            if(s[index - 1] > freeTime)
+            {
+                count ++ ;
+                
+                freeTime = meeting[i].first ;
+                
+                ans.push_back(index) ;
+            }
+        }
+     
+     sort(ans.begin()  , ans.end());
+     
+     return ans ; 
+        
+    }
+};
