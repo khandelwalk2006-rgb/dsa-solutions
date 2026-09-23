@@ -1,35 +1,31 @@
-#include<vector>
-#include<unordered_set>
-using namespace std;
-
 class Solution {
 public:
     bool uniqueOccurrences(vector<int>& arr) {
 
-        int freq[2001] = {0};
+        unordered_map<int, int> mp;
 
-        // count frequency
-        for(int i = 0; i < arr.size(); i++)
+        for(int i = 0 ; i < arr.size() ; i ++)
         {
-            freq[arr[i] + 1000]++;
+            mp[arr[i]] ++  ;
         }
 
-        unordered_set<int> st;
+        unordered_set<int> st ; 
 
-        // check unique frequencies
-        for(int i = 0; i < 2001; i++)
+        for(auto it : mp)
         {
-            if(freq[i] != 0)
+            if(st.find(it.second) != st.end())
             {
-                if(st.find(freq[i]) != st.end())
-                {
-                    return false;
-                }
-
-                st.insert(freq[i]);
+                return false ;
             }
+
+            else
+            {
+                st.insert(it.second) ;
+            }
+
         }
 
-        return true;
+        return true; 
+        
     }
 };
