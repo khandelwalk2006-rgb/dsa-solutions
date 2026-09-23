@@ -2,48 +2,47 @@ class Solution {
   public:
     int search(string &pat, string &txt) {
        
-       vector<int> patFreq(26 , 0);
-       vector<int> window(26 , 0);
+       unordered_map<char , int > mp1 ; 
+       unordered_map<char , int > mp2 ;
        
-       for(int i = 0; i < pat.length() ; i ++)
+       for(int i = 0 ; i < pat.length() ; i ++)
        {
-           patFreq[pat[i] - 'a'] ++;
+           mp1[pat[i]] ++ ;
        }
        
-       int k = pat.length();
-       int count = 0;
+       int j = 0 ; 
+       int count = 0 ;
+       int k = pat.length() ; 
        
-       for(int i = 0 ; i < k;  i++)
+       for(int i = 0 ; i < txt.length() ; i ++)
        {
+           mp2[txt[i]] ++ ;
            
-          window[txt[i] - 'a'] ++;
-       }
-       
-       if(patFreq == window)
-       {
-           count ++;
-       }
-       
-       // sliding window 
-       
-       for(int i = k ; i < txt.length() ; i ++)
-       {
-           // left remove
-           window[txt[i-k] - 'a'] --;
-           
-           // right add
-           window[txt[i] - 'a'] ++;
-           
-           if(patFreq == window)
+           if(i - j + 1 > k )
            {
-               count ++;
+               mp2[txt[j]] -- ;
+               
+               if(mp2[txt[j]] == 0)
+               {
+                   mp2.erase(txt[j]); 
+               }
+               
+               j ++ ; 
            }
+           
+          if(i - j + 1 == k)
+          {
+              if(mp1 == mp2)
+              {
+                  count ++ ; 
+              }
+          }
        }
        
-       return count ;
-    
-        
-        
+       
+       return count  ;
+       
+       
         
     }
 };
