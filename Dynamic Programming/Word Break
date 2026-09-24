@@ -1,0 +1,51 @@
+class Solution {
+
+    unordered_set<string> st ;
+
+    bool solve(int index , string &s , int n , vector<int> &dp)
+    {
+        if(index == n)
+        {
+            return true ;
+        }
+
+        if(st.find(s) != st.end())
+        {
+            return true  ; 
+        }
+
+        if(dp[index] != -1)
+        {
+            return dp[index] ;
+        }
+
+        for(int l = 1 ;  l <= n ; l ++)
+        {
+            string temp = s.substr(index , l) ; 
+
+            if(st.find(temp) != st.end() && solve(index + l , s , n , dp))
+            {
+                return true ; 
+            } 
+        }
+
+        return dp[index] =  false ;
+    }
+
+
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+
+        int n = s.length();  
+
+        for(auto &words : wordDict)
+        {
+            st.insert(words ) ;
+        }
+
+        vector<int > dp(n  + 1 , -1) ;
+
+        return  solve( 0 , s, n , dp) ; 
+        
+    }
+};
