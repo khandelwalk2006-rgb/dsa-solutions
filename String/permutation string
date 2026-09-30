@@ -1,68 +1,58 @@
 class Solution {
-
-
-private:
-bool checkEqual(int a[26] , int b[26])
-{
-    for(int i = 0; i<26; i++)
-    {
-        if(a[i] != b[i])
-        {
-            return 0;
-        } 
-    }
-
-     return 1;
-}
 public:
     bool checkInclusion(string s1, string s2) {
 
-        int count1[26] = {0};
+        unordered_map<char, int > mp1;
 
-        for(int i = 0 ; i <s1.length() ; i++)
+        for(int i = 0 ; i < s1.length() ;i ++)
         {
-            int index = s1[i] - 'a';
-
-            count1[index] ++;
+            mp1[s1[i]] ++ ;
         }
 
-            int i = 0;
-            int windowSize = s1.length();
+        int k = s1.length() ; 
+        int left = 0 ; 
 
-            int count2[26] = {0};
+        unordered_map<char , int> mp2 ;
 
-            while(i < windowSize && i < s2.length())
+        for(int right =0 ; right < s2.length() ; right ++ )
+        {
+            mp2[s2[right]] ++ ; 
+
+            if(right - left +1 > k)
             {
-                int index = s2[i] - 'a';
-                count2[index] ++;
+                mp2[s2[left]] -- ;
 
-                i++;
-            } 
-
-            if(checkEqual(count1 , count2))
-            {
-                return 1;
-            }
-
-            while( i < s2.length())
-            {
-                char newChar = s2[i];
-                int index = newChar - 'a';
-                count2[index] ++;
-
-
-                char oldChar = s2[i - windowSize];
-                 index = oldChar - 'a';
-                count2[index] --;
-
-                i++;
-
-
-                if(checkEqual(count1 , count2))
+                if(mp2[s2[left]] == 0)
                 {
-                    return 1;
-                }        
+                    mp2.erase(s2[left]) ; 
+                }
+
+                left ++ ; 
             }
-              return 0;
+
+            if(right - left + 1 == k)
+            {
+                bool match = true ;
+
+                for(auto it : mp1)
+                {
+                    if(mp1[it.first] != mp2[it.first])
+                    {
+                        match = false ;
+                        break ;
+                    }
+                }
+
+                if(match)
+                {
+                    return true ;
+                }
+            }
+        }
+
+        return false ;
+        
+
+
     }
 };
