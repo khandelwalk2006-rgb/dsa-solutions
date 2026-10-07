@@ -1,52 +1,62 @@
+struct Job
+{
+    int id;
+    int deadline;
+    int profit;
+};
+
 class Solution {
   public:
+
+    static bool cmp(Job a, Job b)
+    {
+        return a.deadline < b.deadline;
+    }
+
     vector<int> jobSequencing(vector<int> &deadline, vector<int> &profit) {
-        
-        int n = deadline.size() ;
-        
-        vector<pair<int , int>> jobs; 
-        
-        for(int i = 0 ; i < n ; i ++)
+
+        int n = deadline.size();
+
+        vector<Job> arr;
+
+        for(int i = 0; i < n; i++)
         {
-            jobs.push_back({profit[i] , deadline[i]}) ; 
+            arr.push_back({i + 1, deadline[i], profit[i]});
         }
-        
-        
-        // descending order
-        sort(jobs.rbegin() , jobs.rend());
-        
-        int maxDeadline = 0 ; 
-        
-        for(int i = 0 ; i < n ; i ++)
+
+        sort(arr.begin(), arr.end(), cmp);
+
+        priority_queue<int, vector<int>, greater<int>> pq;
+
+        int curr = 1;
+
+        for(int i = 0; i < n; i++)
         {
-            maxDeadline = max(maxDeadline , deadline[i]) ; 
-        }
-        
-        int count = 0 ; 
-        int totalProfit = 0 ;
-        
-        vector<int> slots(maxDeadline + 1 , -1) ;
-        
-        for(int i = 0 ; i < n ; i ++)
-        {
-            int currProfit = jobs[i].first;
-            int currDeadline = jobs[i].second; 
-            
-            for(int j = currDeadline ; j >= 1 ; j --)
+            if(arr[i].deadline >= curr)
             {
-                if(slots[j] == -1)
+                pq.push(arr[i].profit);
+                curr++;
+            }
+            else
+            {
+                if(arr[i].profit > pq.top())
                 {
-                    slots[j] = currProfit ; 
-                    count ++ ; 
-                    totalProfit += currProfit ; 
-                    break ;
-                    
+                    pq.pop();
+                    pq.push(arr[i].profit);
                 }
             }
         }
-        
-        return {count , totalProfit} ;
-        
-        
+
+        int total = 0;
+
+        int job = pq.size();
+
+        while(!pq.empty())
+        {
+            total += pq.top();
+            pq.pop();
+        }
+
+        return {job, total};
     }
 };
